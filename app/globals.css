@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light: plain white page, black text, neutral greys, one ink-blue accent for links */
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 0 0% 0%; /* primary button: black on white */
+    --primary-foreground: 0 0% 100%;
+    --link: 215 70% 30%; /* 9:1 on white */
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 30%;
+    --placeholder: 0 0% 45%; /* 4.8:1 on white, lighter than muted text so hints don't look like values */
+    --accent: 0 0% 93%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 65% 38%;
+    --destructive-foreground: 0 0% 100%;
+    --danger: 0 65% 38%;
+    --ok: 140 55% 24%;
+    --warn: 36 75% 42%;
+    --border: 0 0% 85%;
+    --input: 0 0% 72%;
+    --ring: 0 0% 0%;
+    --radius: 4px;
+    /* Site header: one fixed colour scheme, the same in light and dark mode. Deliberately NOT redefined in .dark
+       below, so a theme change can't alter the header. Starts from the light-mode homepage section bars. */
+    --header-bg: 0 0% 0%; /* #000000 */
+    --header-fg: 0 0% 100%; /* #FFFFFF: text, links, account area, nav; 21:1 on the header */
+    --header-border: 0 0% 45%; /* #737373: 1px bottom edge, 4.4:1 against the black page in dark mode */
+    --header-divider: 0 0% 25%; /* #404040: line between the two header rows (decorative) */
+    --header-field-bg: 0 0% 10%; /* #1A1A1A: search field */
+    --header-field-border: 0 0% 55%; /* #8C8C8C */
+    --header-placeholder: 0 0% 70%; /* #B3B3B3 */
+    --header-focus: 0 0% 100%; /* focus outline inside the header */
+    --font-ethiopic: "Noto Sans Ethiopic", "Kefa", "Nyala", "Ebrima", "Abyssinica SIL";
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, var(--font-ethiopic), sans-serif;
+    --font-serif: Charter, "Bitstream Charter", "Iowan Old Style", "Sitka Text", Cambria, Georgia, "Noto Serif Ethiopic", var(--font-ethiopic), serif;
+  }
+  /* Dark: plain black page, white text, neutral greys */
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
+    --link: 212 85% 75%; /* 10:1 on black */
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 72%;
+    --placeholder: 0 0% 58%; /* 6.6:1 on black */
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 100%;
+    --danger: 0 75% 72%;
+    --ok: 140 45% 62%;
+    --warn: 36 65% 50%;
+    --border: 0 0% 22%;
+    --input: 0 0% 32%;
+    --ring: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+  }
+  /* Ge'ez text: prefer a real Ethiopic face over whatever the Latin stack falls back to */
+  :lang(am) {
+    font-family: var(--font-ethiopic), var(--font-sans);
+  }
+  /* Links in page content use the accent; header/footer navigation stays plain text.
+     Colour utilities on a link (text-foreground, text-muted-foreground ...) still win. */
+  a {
+    color: hsl(var(--link));
+  }
+  header a,
+  footer a {
+    color: inherit;
+  }
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+  .site-header {
+    background-color: hsl(var(--header-bg));
+    color: hsl(var(--header-fg));
+    border-bottom: 1px solid hsl(var(--header-border));
+  }
+  .site-header :focus-visible {
+    outline-color: hsl(var(--header-focus));
+  }
+  /* Tailwind's default placeholder grey is only 2.4:1 on the light page */
+  input::placeholder,
+  textarea::placeholder {
+    color: hsl(var(--placeholder));
+  }
+}
+
+
+body { font-size: 16px; line-height: 1.55; font-weight: 500; }
+.dark body { font-weight: 450; } /* light-on-dark text already looks heavier */
+a { text-underline-offset: 2px; }
+.dg-h {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid color-mix(in srgb, currentColor 20%, transparent);
+}
